@@ -7,29 +7,29 @@ import moviedb.cleanarchitecture.com.framgia.domain.model.Movie
 
 class MovieEntity(
         @SerializedName("vote_count")
-        var voteCount: Int = 0,
+        var voteCount: Int? = 0,
         @SerializedName("id")
-        var id: String = "",
+        var id: String? = "",
         @SerializedName("video")
-        var video: Boolean = false,
+        var video: Boolean? = false,
         @SerializedName("vote_average")
-        var voteAverage: String = "",
+        var voteAverage: String? = "",
         @SerializedName("title")
-        var title: String = "",
+        var title: String? = "",
         @SerializedName("popularity")
-        var popularity: String = "",
+        var popularity: String? = "",
         @SerializedName("poster_path")
-        var posterPath: String = "",
+        var posterPath: String? = "",
         @SerializedName("original_title")
-        var originalTitle: String = "",
+        var originalTitle: String? = "",
         @SerializedName("backdrop_path")
-        var backdropPath: String = "",
+        var backdropPath: String ?= "",
         @SerializedName("adult")
-        var adult: Boolean = false,
+        var adult: Boolean? = false,
         @SerializedName("overview")
-        var overview: String = "",
+        var overview: String? = "",
         @SerializedName("release_date")
-        var releaseDate: String = ""
+        var releaseDate: String? = ""
 ) : ModelEntity()
 
 class MovieEntityMapper : EntityMapper<Movie, MovieEntity> {
