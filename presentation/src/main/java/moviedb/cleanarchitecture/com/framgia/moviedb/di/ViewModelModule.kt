@@ -14,7 +14,9 @@ val viewModelModule = module {
     viewModel { HomeViewModel(get(), get(), get(), get(), get(), get()) }
     viewModel { MainViewModel() }
     viewModel { FavoriteViewModel() }
+    single { provideCompositeDisposable() }
+    single { provideScheduleProvider() }
 }
 
-fun provideCompositDisposable() = CompositeDisposable()
+fun provideCompositeDisposable() = CompositeDisposable()
 fun provideScheduleProvider(): ScheduleProvider = AppSchedulerProvider()
