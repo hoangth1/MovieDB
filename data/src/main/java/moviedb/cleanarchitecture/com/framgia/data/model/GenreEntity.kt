@@ -7,9 +7,9 @@ import moviedb.cleanarchitecture.com.framgia.domain.model.Genre
 
 class GenreEntity(
         @SerializedName("id")
-        var id: String = "",
+        var id: String? = null  ,
         @SerializedName("name")
-        var name: String = ""
+        var name: String? = null
 ) : ModelEntity()
 
 class GenreEntityMapper : EntityMapper<Genre, GenreEntity> {
