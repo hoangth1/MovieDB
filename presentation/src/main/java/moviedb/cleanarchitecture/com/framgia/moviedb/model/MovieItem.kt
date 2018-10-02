@@ -21,7 +21,7 @@ data class MovieItem(
 ) : ModelItem()
 
 class MovieItemMapper : ItemMapper<Movie, MovieItem> {
-    override fun mapToPresentation(model: Movie): ModelItem = MovieItem(
+    override fun mapToPresentation(model: Movie): MovieItem = MovieItem(
             voteCount = model.voteCount,
             id = model.id,
             video = model.video,

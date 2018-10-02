@@ -9,7 +9,7 @@ class PopularUseCase(
         private val movieRepository: MovieRepository) : UseCase<PopularUseCase.Params,
         Single<List<Movie>>>() {
     override fun createObservable(params: PopularUseCase.Params?): Single<List<Movie>> {
-        params?.let { return movieRepository.getListNowPlaying(it.page) }
+        params?.let { return movieRepository.getListPopular(it.page) }
         return Single.error(Throwable(""))
     }
 
