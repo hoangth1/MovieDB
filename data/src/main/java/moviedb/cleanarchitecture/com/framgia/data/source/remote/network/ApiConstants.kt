@@ -5,4 +5,5 @@ object ApiConstants {
     const val KEY = "d107661962965284a68ab916fb8bd204"
     const val PARAM_API_KEY = "api_key"
     const val PARAM_PAGE = "page"
+    const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 }

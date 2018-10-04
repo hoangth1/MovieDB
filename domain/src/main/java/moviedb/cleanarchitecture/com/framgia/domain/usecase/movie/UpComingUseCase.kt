@@ -9,7 +9,7 @@ class UpComingUseCase(
         private val movieRepository: MovieRepository) : UseCase<UpComingUseCase.Params,
         Single<List<Movie>>>() {
     override fun createObservable(params: UpComingUseCase.Params?): Single<List<Movie>> {
-        params?.let { return movieRepository.getListNowPlaying(it.page) }
+        params?.let { return movieRepository.getListUpComing(it.page) }
         return Single.error(Throwable(""))
     }
 

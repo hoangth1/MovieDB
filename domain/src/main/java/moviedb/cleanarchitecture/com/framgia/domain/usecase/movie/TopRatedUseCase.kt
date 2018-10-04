@@ -9,7 +9,7 @@ class TopRatedUseCase(
         private val movieRepository: MovieRepository) : UseCase<TopRatedUseCase.Params,
         Single<List<Movie>>>() {
     override fun createObservable(params: TopRatedUseCase.Params?): Single<List<Movie>> {
-        params?.let { return movieRepository.getListNowPlaying(it.page) }
+        params?.let { return movieRepository.getListTopRated(it.page) }
         return Single.error(Throwable(""))
     }
 

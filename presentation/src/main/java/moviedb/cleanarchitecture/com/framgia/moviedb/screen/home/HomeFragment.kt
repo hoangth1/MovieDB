@@ -1,10 +1,13 @@
 package moviedb.cleanarchitecture.com.framgia.moviedb.screen.home
 
-import android.databinding.ViewDataBinding
+import android.arch.lifecycle.Observer
+import android.support.v7.widget.LinearLayoutManager
 import moviedb.cleanarchitecture.com.framgia.moviedb.BR
 import moviedb.cleanarchitecture.com.framgia.moviedb.R
 import moviedb.cleanarchitecture.com.framgia.moviedb.base.BaseFragment
 import moviedb.cleanarchitecture.com.framgia.moviedb.databinding.FragmentHomeBinding
+import moviedb.cleanarchitecture.com.framgia.moviedb.screen.home.adapter.GenreAdapter
+import moviedb.cleanarchitecture.com.framgia.moviedb.screen.home.adapter.MovieAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment() : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -15,8 +18,52 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override val layoutId = R.layout.fragment_home
     override val viewModel by viewModel<HomeViewModel>()
     override val bindingVariable: Int = BR.viewModel
-    override fun initComponent(viewDataBinding: ViewDataBinding) {
-        viewModel.getGenres()
-    }
+    override fun initComponent(viewDataBinding: FragmentHomeBinding) {
+        val genreAdapter = GenreAdapter()
+        val popularAdapter = MovieAdapter()
+        val nowPlayingAdapter = MovieAdapter()
+        val topRateAdapter = MovieAdapter()
+        val upComingAdapter = MovieAdapter()
+        viewDataBinding.apply {
+            recyclerGenre.apply {
+                adapter = genreAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
+            recyclerMostPopular.apply {
+                adapter = popularAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
+            recyclerTopRated.apply {
+                adapter = topRateAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
+            recyclerNowPlaying.apply {
+                adapter = nowPlayingAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
+            recyclerUpComing.apply {
+                adapter = upComingAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
+        }
+        viewModel.apply {
+            listGenre.observe(this@HomeFragment, Observer {
+                genreAdapter.submitList(it)
+            })
+            listPopular.observe(this@HomeFragment, Observer {
+                popularAdapter.submitList(it)
+            })
+            listNowPlaying.observe(this@HomeFragment, Observer {
+                nowPlayingAdapter.submitList(it)
+            })
+            listTopRated.observe(this@HomeFragment, Observer {
+                topRateAdapter.submitList(it)
+            })
+            listUpComing.observe(this@HomeFragment, Observer {
+                upComingAdapter.submitList(it)
+            })
+            getData()
 
+        }
+    }
 }

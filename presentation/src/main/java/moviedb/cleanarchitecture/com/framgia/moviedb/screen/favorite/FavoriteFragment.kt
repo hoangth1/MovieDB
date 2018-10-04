@@ -15,6 +15,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     override val layoutId = R.layout.fragment_favorite
     override val viewModel by viewModel<FavoriteViewModel>()
     override val bindingVariable: Int = BR.viewModel
-    override fun initComponent(viewDataBinding: ViewDataBinding) {
+    override fun initComponent(viewDataBinding: FragmentFavoriteBinding) {
     }
 }

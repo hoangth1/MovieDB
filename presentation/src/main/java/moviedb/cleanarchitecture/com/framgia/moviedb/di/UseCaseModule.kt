@@ -10,12 +10,14 @@ import moviedb.cleanarchitecture.com.framgia.domain.usecase.movie.UpComingUseCas
 import org.koin.dsl.module.module
 
 val useCaseModule = module {
+    single { provideGenreUseCase(get()) }
     single { provideNowPlayingUseCase(get()) }
     single { providePopularUseCase(get()) }
     single { provideTopRatedUseCase(get()) }
     single { provideUpComingUseCase(get()) }
 }
 
+fun provideGenreUseCase(repository: GenreRepository) = GenreUseCase(repository)
 fun provideNowPlayingUseCase(repository: MovieRepository) = NowPlayingUseCase(repository)
 fun providePopularUseCase(repository: MovieRepository) = PopularUseCase(repository)
 fun provideTopRatedUseCase(repository: MovieRepository) = TopRatedUseCase(repository)

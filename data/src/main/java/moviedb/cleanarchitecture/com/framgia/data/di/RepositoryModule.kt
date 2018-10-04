@@ -10,6 +10,7 @@ import moviedb.cleanarchitecture.com.framgia.data.source.remote.network.GenreApi
 import moviedb.cleanarchitecture.com.framgia.data.source.remote.network.MovieApi
 import moviedb.cleanarchitecture.com.framgia.data.source.repository.GenreRepositoryImp
 import moviedb.cleanarchitecture.com.framgia.data.source.repository.MovieRepositoryImp
+import moviedb.cleanarchitecture.com.framgia.domain.repository.GenreRepository
 import moviedb.cleanarchitecture.com.framgia.domain.repository.MovieRepository
 import org.koin.dsl.module.module
 
@@ -26,7 +27,7 @@ val repositoryModule = module(override = true) {
 
 fun provideGenreRepository(remote: GenreRemoteDataSource,
                            local: GenreLocalDataSource,
-                           genreEntityMapper: GenreEntityMapper) =
+                           genreEntityMapper: GenreEntityMapper): GenreRepository =
         GenreRepositoryImp(remote, local, genreEntityMapper)
 
 fun provideGenreRemoteDataSource(genreApi: GenreApi) = GenreRemoteDataSource(genreApi)

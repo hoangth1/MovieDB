@@ -19,7 +19,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         viewBinding.apply {
             root.isClickable = true
-            initComponent(this)
+            initComponent(viewBinding)
             setVariable(bindingVariable, viewModel)
             setLifecycleOwner(this@BaseFragment)
             executePendingBindings()
@@ -27,7 +27,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         return viewBinding.root
     }
 
-    abstract fun initComponent(viewDataBinding: ViewDataBinding)
+    abstract fun initComponent(viewDataBinding: ViewBinding)
     fun findFragment(tag: String): Fragment? {
         return activity?.supportFragmentManager?.findFragmentByTag(tag)
     }
