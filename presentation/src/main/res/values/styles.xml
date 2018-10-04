@@ -6,6 +6,6 @@
         <item name="colorPrimary">@color/color_gold_drop</item>
         <item name="colorPrimaryDark">@color/color_trinidad</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorControlNormal">@color/color_white</item>
     </style>
-
 </resources>
