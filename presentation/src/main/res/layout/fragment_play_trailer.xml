@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="moviedb.cleanarchitecture.com.framgia.moviedb.screen.playtrailer.PlayTrailerViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/container_video"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_200"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="@{viewModel.currentTrailer.name}"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/container_video" />
+
+        <ImageView
+            android:id="@+id/image_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:src="@drawable/ic_star"
+            app:layout_constraintStart_toStartOf="@id/text_title"
+            app:layout_constraintTop_toBottomOf="@id/text_title" />
+
+        <TextView
+            android:id="@+id/text_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{@string/title_rating+viewModel.movie.voteCount}"
+            app:layout_constraintBottom_toBottomOf="@id/image_star"
+            app:layout_constraintStart_toEndOf="@id/image_star"
+            app:layout_constraintTop_toTopOf="@id/image_star" />
+
+        <ImageView
+            android:id="@+id/image_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_date"
+            app:layout_constraintStart_toStartOf="@id/image_star"
+            app:layout_constraintTop_toBottomOf="@id/image_star" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/title_release_date+viewModel.movie.releaseDate}"
+            app:layout_constraintBottom_toBottomOf="@id/image_date"
+            app:layout_constraintStart_toStartOf="@id/text_rating"
+            app:layout_constraintTop_toTopOf="@id/image_date" />
+
+        <TextView
+            android:id="@+id/text_underline"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_date" />
+
+        <TextView
+            android:id="@+id/text_more_trailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="@string/title_more_trailer"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/text_title"
+            app:layout_constraintTop_toBottomOf="@id/text_underline" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_list_trailer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_more_trailer" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

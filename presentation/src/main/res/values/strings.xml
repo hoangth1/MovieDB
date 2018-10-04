@@ -8,4 +8,9 @@
     <string name="title_most_popular">Most Popular</string>
     <string name="title_up_coming">Up Coming</string>
     <string name="title_top_rated">Top Rated</string>
+    <string name="title_rating">"Rating: "</string>
+    <string name="title_release_date">"Release date: "</string>
+    <string name="title_more_trailer">More Trailer</string>
+    <string name="title_cast">Cast</string>
+    <string name="title_trailer_offical">Trailer offical</string>
 </resources>
