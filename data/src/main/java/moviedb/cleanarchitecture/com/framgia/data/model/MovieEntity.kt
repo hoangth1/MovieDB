@@ -23,7 +23,7 @@ class MovieEntity(
         @SerializedName("original_title")
         var originalTitle: String? = null,
         @SerializedName("backdrop_path")
-        var backdropPath: String ?= null,
+        var backdropPath: String? = null,
         @SerializedName("adult")
         var adult: Boolean? = false,
         @SerializedName("overview")

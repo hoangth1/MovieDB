@@ -1,10 +1,12 @@
 package moviedb.cleanarchitecture.com.framgia.moviedb.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import moviedb.cleanarchitecture.com.framgia.domain.model.Model
 import moviedb.cleanarchitecture.com.framgia.domain.model.Movie
 import moviedb.cleanarchitecture.com.framgia.moviedb.base.ItemMapper
 import moviedb.cleanarchitecture.com.framgia.moviedb.base.ModelItem
-
+@Parcelize
 data class MovieItem(
         var voteCount: Int? = null,
         var id: String? = null,
@@ -18,7 +20,7 @@ data class MovieItem(
         var adult: Boolean? = false,
         var overview: String? = null,
         var releaseDate: String? = null
-) : ModelItem()
+) : ModelItem(), Parcelable
 
 class MovieItemMapper : ItemMapper<Movie, MovieItem> {
     override fun mapToPresentation(model: Movie): MovieItem = MovieItem(
