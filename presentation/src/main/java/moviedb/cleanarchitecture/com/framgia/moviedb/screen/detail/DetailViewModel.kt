@@ -6,6 +6,7 @@ import io.reactivex.disposables.CompositeDisposable
 import moviedb.cleanarchitecture.com.framgia.domain.model.Cast
 import moviedb.cleanarchitecture.com.framgia.domain.usecase.movie.CastUseCase
 import moviedb.cleanarchitecture.com.framgia.moviedb.base.BaseViewModel
+import moviedb.cleanarchitecture.com.framgia.moviedb.model.CastItem
 import moviedb.cleanarchitecture.com.framgia.moviedb.model.CastItemMapper
 import moviedb.cleanarchitecture.com.framgia.moviedb.model.MovieItem
 import moviedb.cleanarchitecture.com.framgia.moviedb.rx.ScheduleProvider
@@ -18,7 +19,7 @@ class DetailViewModel(
 ) : BaseViewModel() {
     val movie = MutableLiveData<MovieItem>()
     val isLoading = MutableLiveData<Boolean>()
-    val listCast = MutableLiveData<List<Cast>>()
+    val listCast = MutableLiveData<List<CastItem>>()
 
     fun getCasts(movieId: String) =
             compositeDisposable.add(castUseCase.createObservable(CastUseCase.Params(movieId))
@@ -29,6 +30,9 @@ class DetailViewModel(
                     }
                     .doAfterTerminate {
                         isLoading.value = false
+                    }
+                    .map { listCast ->
+                        listCast.map { castItemMapper.mapToPresentation(it) }
                     }
                     .subscribe({
                         listCast.value = it

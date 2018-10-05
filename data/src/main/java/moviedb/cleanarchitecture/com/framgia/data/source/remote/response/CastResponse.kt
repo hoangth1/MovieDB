@@ -7,5 +7,5 @@ class CastResponse(
         @SerializedName("id")
         var id: String? = null,
         @SerializedName("cast")
-        var listCasts: List<CastEntity>?=null
+        var listCasts: List<CastEntity>? = null
 )

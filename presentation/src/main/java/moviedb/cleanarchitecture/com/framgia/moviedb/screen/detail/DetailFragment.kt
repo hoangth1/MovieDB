@@ -9,6 +9,7 @@ import moviedb.cleanarchitecture.com.framgia.moviedb.BR
 import moviedb.cleanarchitecture.com.framgia.moviedb.R
 import moviedb.cleanarchitecture.com.framgia.moviedb.base.BaseFragment
 import moviedb.cleanarchitecture.com.framgia.moviedb.databinding.FragmentDetailBinding
+import moviedb.cleanarchitecture.com.framgia.moviedb.model.CastItem
 import moviedb.cleanarchitecture.com.framgia.moviedb.model.MovieItem
 import moviedb.cleanarchitecture.com.framgia.moviedb.screen.detail.apdater.CastAdapter
 import moviedb.cleanarchitecture.com.framgia.moviedb.screen.main.MainActivity
@@ -25,7 +26,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>(), D
                 putParcelable(BUNDLE_MOVIE, movie)
             }
         }
-
     }
 
     override val bindingVariable: Int = BR.viewModel
@@ -48,9 +48,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>(), D
         activityViewModel.haveStatusBar.value = true
         viewDataBinding.handler = this
         val currenMovie = bundle.getParcelable<MovieItem>(BUNDLE_MOVIE)
-        val castAdapter = CastAdapter()
-
-
+        val castAdapter = CastAdapter ()
         viewDataBinding.recyclerCast.apply {
             adapter = castAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -67,4 +65,5 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>(), D
     override fun onClickTrailer(movieItem: MovieItem) {
         replaceFragment(R.id.child_container, PlayTrailerFragment.newInstance(movieItem), "", true)
     }
+
 }
