@@ -5,6 +5,7 @@ import android.support.v7.recyclerview.extensions.AsyncDifferConfig
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
 import java.util.concurrent.Executors
 
@@ -17,8 +18,14 @@ abstract class BaseRecyclerViewAdapter<T>(
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewDataBinding> {
-        return BaseViewHolder(createBinding(parent = parent, viewType = viewType))
+        return BaseViewHolder(createBinding(parent = parent, viewType = viewType).apply {
+            root.setOnClickListener {
+                bindFirstTime(this)
+            }
+        })
     }
+
+    abstract fun bindFirstTime(viewBinding: ViewDataBinding)
 
     override fun onBindViewHolder(holder: BaseViewHolder<ViewDataBinding>, position: Int) {
         bind(holder.binding, getItem(position))
