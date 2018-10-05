@@ -10,7 +10,7 @@ import moviedb.cleanarchitecture.com.framgia.moviedb.base.BaseRecyclerViewAdapte
 import moviedb.cleanarchitecture.com.framgia.moviedb.databinding.ItemGenreBinding
 import moviedb.cleanarchitecture.com.framgia.moviedb.model.GenreItem
 
-class GenreAdapter : BaseRecyclerViewAdapter<GenreItem>(
+class GenreAdapter(val onItemClick: (GenreItem) -> Unit) : BaseRecyclerViewAdapter<GenreItem>(
         object : DiffUtil.ItemCallback<GenreItem>() {
             override fun areContentsTheSame(oldItem: GenreItem?, newItem: GenreItem?): Boolean {
                 return oldItem?.name == newItem?.name
@@ -21,6 +21,10 @@ class GenreAdapter : BaseRecyclerViewAdapter<GenreItem>(
             }
         }
 ) {
+    override fun bindFirstTime(viewBinding: ViewDataBinding) {
+        if (viewBinding is ItemGenreBinding) viewBinding.genreItem?.let { onItemClick.invoke(it) }
+    }
+
     override fun createBinding(parent: ViewGroup, viewType: Int?): ViewDataBinding {
         return DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),

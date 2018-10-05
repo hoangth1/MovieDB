@@ -10,7 +10,7 @@ import moviedb.cleanarchitecture.com.framgia.moviedb.base.BaseRecyclerViewAdapte
 import moviedb.cleanarchitecture.com.framgia.moviedb.databinding.ItemMovieBinding
 import moviedb.cleanarchitecture.com.framgia.moviedb.model.MovieItem
 
-class MovieAdapter : BaseRecyclerViewAdapter<MovieItem>(
+class MovieAdapter(val itemClick: (MovieItem) -> Unit) : BaseRecyclerViewAdapter<MovieItem>(
         object : DiffUtil.ItemCallback<MovieItem>() {
             override fun areContentsTheSame(oldItem: MovieItem?, newItem: MovieItem?): Boolean {
                 return oldItem?.title == newItem?.title && oldItem?.overview == newItem?.overview
@@ -21,6 +21,11 @@ class MovieAdapter : BaseRecyclerViewAdapter<MovieItem>(
             }
         }
 ) {
+    override fun bindFirstTime(viewBinding: ViewDataBinding) {
+        if (viewBinding is ItemMovieBinding) viewBinding.movieItem?.let { itemClick.invoke(it) }
+    }
+
+
     override fun createBinding(parent: ViewGroup, viewType: Int?): ViewDataBinding {
         return DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
