@@ -3,12 +3,11 @@ package moviedb.cleanarchitecture.com.framgia.data.source.remote
 import io.reactivex.Single
 import moviedb.cleanarchitecture.com.framgia.data.source.MovieDataSource
 import moviedb.cleanarchitecture.com.framgia.data.source.remote.network.MovieApi
-import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.CastResponse
-import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.DetailGenreResponse
-import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.MovieResponse
-import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.TrailerResponse
+import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.*
 
 class MovieRemoteDatSource(val movieApi: MovieApi) : MovieDataSource.Remote {
+    override fun getMovieByPerson(idPerson: String): Single<MovieByPersonResponse> = movieApi.getMovieByPerson(idPerson)
+
     override fun getTrailer(idMovie: String): Single<TrailerResponse> = movieApi.getTrailer(idMovie)
 
     override fun searchMovie(query: String,

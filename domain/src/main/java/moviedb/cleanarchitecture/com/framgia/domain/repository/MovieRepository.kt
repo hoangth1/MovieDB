@@ -14,4 +14,5 @@ interface MovieRepository {
     fun getListMovieByGenre(genreId: String, page: Int): Single<List<Movie>>
     fun searchMovies(query: String, page: Int): Single<List<Movie>>
     fun getTrailer(idMovie: String): Single<List<Trailer>>
+    fun getMovieByPerson(idPerson: String): Single<List<Movie>>
 }

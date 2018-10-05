@@ -17,6 +17,11 @@ class MovieRepositoryImp(val remote: MovieRemoteDatSource,
                          private val castEntityMapper: CastEntityMapper,
                          private val trailerEntityMapper: TrailerEntityMapper
 ) : MovieRepository {
+    override fun getMovieByPerson(idPerson: String): Single<List<Movie>> = remote.getMovieByPerson(idPerson)
+            .map { response ->
+                response.listMovie?.map { movieEntityMapper.mapToDomain(it) }
+            }
+
     override fun getTrailer(idMovie: String): Single<List<Trailer>> = remote.getTrailer(idMovie)
             .map { response ->
                 response.listTrailer?.map { trailerEntityMapper.mapToDomain(it) }

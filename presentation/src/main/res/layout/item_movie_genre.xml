@@ -1,0 +1,75 @@
+<layout>
+
+    <data>
+
+        <import type="moviedb.cleanarchitecture.com.framgia.data.source.remote.network.ApiConstants" />
+
+        <variable
+            name="movieItem"
+            type="moviedb.cleanarchitecture.com.framgia.moviedb.model.MovieItem" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:id="@+id/image_poster"
+            imageUrl="@{ApiConstants.BASE_IMAGE_URL+movieItem.posterPath??movieItem.posterPath}"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9"
+
+            />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{movieItem.title}"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/sp_20"
+            app:layout_constraintEnd_toEndOf="@id/guideline"
+            app:layout_constraintStart_toEndOf="@id/image_poster"
+            app:layout_constraintTop_toTopOf="@id/image_poster" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{movieItem.overview}"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="@id/text_title"
+            app:layout_constraintTop_toBottomOf="@id/text_title" />
+
+        <ImageView
+            android:id="@+id/image_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_star"
+            app:layout_constraintBottom_toBottomOf="@id/image_poster"
+            app:layout_constraintStart_toStartOf="@id/text_title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{movieItem.voteCount.toString()}"
+            app:layout_constraintBottom_toBottomOf="@id/image_rating"
+            app:layout_constraintStart_toEndOf="@id/image_rating"
+            app:layout_constraintTop_toTopOf="@id/image_rating" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

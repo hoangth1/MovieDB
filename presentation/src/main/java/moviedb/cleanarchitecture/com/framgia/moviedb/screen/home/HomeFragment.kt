@@ -6,6 +6,10 @@ import moviedb.cleanarchitecture.com.framgia.moviedb.BR
 import moviedb.cleanarchitecture.com.framgia.moviedb.R
 import moviedb.cleanarchitecture.com.framgia.moviedb.base.BaseFragment
 import moviedb.cleanarchitecture.com.framgia.moviedb.databinding.FragmentHomeBinding
+import moviedb.cleanarchitecture.com.framgia.moviedb.model.GenreItem
+import moviedb.cleanarchitecture.com.framgia.moviedb.model.MovieItem
+import moviedb.cleanarchitecture.com.framgia.moviedb.screen.detail.DetailFragment
+import moviedb.cleanarchitecture.com.framgia.moviedb.screen.detailgenre.DetailGenreFragment
 import moviedb.cleanarchitecture.com.framgia.moviedb.screen.home.adapter.GenreAdapter
 import moviedb.cleanarchitecture.com.framgia.moviedb.screen.home.adapter.MovieAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -19,11 +23,11 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override val viewModel by viewModel<HomeViewModel>()
     override val bindingVariable: Int = BR.viewModel
     override fun initComponent(viewDataBinding: FragmentHomeBinding) {
-        val genreAdapter = GenreAdapter()
-        val popularAdapter = MovieAdapter()
-        val nowPlayingAdapter = MovieAdapter()
-        val topRateAdapter = MovieAdapter()
-        val upComingAdapter = MovieAdapter()
+        val genreAdapter = GenreAdapter { openDetaiGenre(it) }
+        val popularAdapter = MovieAdapter { openDetailMovie(it) }
+        val nowPlayingAdapter = MovieAdapter { openDetailMovie(it) }
+        val topRateAdapter = MovieAdapter { openDetailMovie(it) }
+        val upComingAdapter = MovieAdapter { openDetailMovie(it) }
         viewDataBinding.apply {
             recyclerGenre.apply {
                 adapter = genreAdapter
@@ -65,5 +69,13 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             getData()
 
         }
+    }
+
+    fun openDetailMovie(movieItem: MovieItem) {
+        replaceFragment(R.id.child_container, DetailFragment.newInstance(movieItem), "", true)
+    }
+
+    fun openDetaiGenre(genre: GenreItem) {
+        replaceFragment(R.id.child_container, DetailGenreFragment.newInstance(genre), "", true)
     }
 }
