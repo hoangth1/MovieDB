@@ -12,7 +12,7 @@ import moviedb.cleanarchitecture.com.framgia.moviedb.base.BaseRecyclerViewAdapte
 import moviedb.cleanarchitecture.com.framgia.moviedb.databinding.ItemCastBinding
 import moviedb.cleanarchitecture.com.framgia.moviedb.model.CastItem
 
-class CastAdapter() : BaseRecyclerViewAdapter<CastItem>(
+class CastAdapter(val onItemClick: (CastItem) -> Unit) : BaseRecyclerViewAdapter<CastItem>(
         object : DiffUtil.ItemCallback<CastItem>() {
             override fun areContentsTheSame(oldItem: CastItem?, newItem: CastItem?): Boolean {
                 return oldItem?.id == newItem?.id
@@ -24,6 +24,7 @@ class CastAdapter() : BaseRecyclerViewAdapter<CastItem>(
         }
 ) {
     override fun bindFirstTime(viewBinding: ViewDataBinding) {
+        if (viewBinding is ItemCastBinding) onItemClick.invoke(viewBinding.castItem ?: return)
 
     }
 

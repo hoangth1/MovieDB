@@ -22,8 +22,11 @@ abstract class BaseRecyclerViewAdapter<T>(
             root.setOnClickListener {
                 bindFirstTime(this)
             }
+            handleChildClick(this)
         })
     }
+
+    open fun handleChildClick(viewDataBinding: ViewDataBinding) {}
 
     abstract fun bindFirstTime(viewBinding: ViewDataBinding)
 

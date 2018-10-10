@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="moviedb.cleanarchitecture.com.framgia.data.source.remote.network.ApiConstants" />
+
+        <variable
+            name="viewModel"
+            type="moviedb.cleanarchitecture.com.framgia.moviedb.screen.detailcast.DetailCastViewModel" />
+    </data>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_avatar"
+                imageUrl="@{ApiConstants.BASE_IMAGE_URL+viewModel.person.profilePath??viewModel.person.profilePath}"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_120"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:text="@{viewModel.person.name}"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/image_avatar"
+                app:layout_constraintTop_toTopOf="@id/image_avatar" />
+
+            <TextView
+                android:id="@+id/text_birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/title_birthday+viewModel.person.birthday}"
+                app:layout_constraintStart_toStartOf="@id/text_name"
+                app:layout_constraintTop_toBottomOf="@id/text_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/title_popularity+viewModel.person.popularity}"
+                app:layout_constraintStart_toStartOf="@id/text_birthday"
+                app:layout_constraintTop_toBottomOf="@id/text_birthday" />
+
+            <TextView
+                android:id="@+id/text_biography"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="Biography"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/image_avatar"
+                app:layout_constraintTop_toBottomOf="@id/image_avatar" />
+
+            <TextView
+                android:id="@+id/text_biography_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:text="@{viewModel.person.biography}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/text_biography"
+                app:layout_constraintTop_toBottomOf="@id/text_biography" />
+
+            <TextView
+                android:id="@+id/text_related_movies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="Related movies"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/text_biography"
+                app:layout_constraintTop_toBottomOf="@id/text_biography_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyler_related_video"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_related_movies" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

@@ -34,6 +34,8 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
+                android:id="@+id/image_back"
+                android:onClick="@{()-> handler.onBackClick()}"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:src="@drawable/ic_back"
@@ -43,7 +45,8 @@
             <ImageView
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
-                android:src="@drawable/ic_favorite_border_red"
+                android:onClick="@{()->handler.onFavoriteClick()}"
+                android:src="@{viewModel.movie.favorite?@drawable/ic_favorite_fill_red:@drawable/ic_favorite_border_red}"
                 app:layout_constraintBottom_toBottomOf="@id/image_backdrop"
                 app:layout_constraintEnd_toEndOf="parent" />
 

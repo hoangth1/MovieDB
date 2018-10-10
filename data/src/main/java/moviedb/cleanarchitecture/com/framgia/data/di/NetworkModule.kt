@@ -4,6 +4,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import moviedb.cleanarchitecture.com.framgia.data.source.remote.network.ApiConstants
 import moviedb.cleanarchitecture.com.framgia.data.source.remote.network.GenreApi
 import moviedb.cleanarchitecture.com.framgia.data.source.remote.network.MovieApi
+import moviedb.cleanarchitecture.com.framgia.data.source.remote.network.PersonApi
 import okhttp3.OkHttpClient
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
@@ -15,6 +16,7 @@ val netwokModule = module {
     single { provideRetrofit(get()) }
     single { provideGenreApi(get()) }
     single { provideMovieApi(get()) }
+    single { providePersonApi(get()) }
 }
 
 fun provideHttpClientBuilde(): OkHttpClient.Builder {
@@ -41,3 +43,4 @@ fun provideRetrofit(httpClient: OkHttpClient.Builder): Retrofit {
 
 fun provideGenreApi(retrofit: Retrofit): GenreApi = retrofit.create(GenreApi::class.java)
 fun provideMovieApi(retrofit: Retrofit): MovieApi = retrofit.create(MovieApi::class.java)
+fun providePersonApi(retrofit: Retrofit): PersonApi = retrofit.create(PersonApi::class.java)

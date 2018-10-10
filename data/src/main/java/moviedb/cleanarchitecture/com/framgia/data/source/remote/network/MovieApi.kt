@@ -1,10 +1,7 @@
 package moviedb.cleanarchitecture.com.framgia.data.source.remote.network
 
 import io.reactivex.Single
-import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.CastResponse
-import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.DetailGenreResponse
-import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.MovieResponse
-import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.TrailerResponse
+import moviedb.cleanarchitecture.com.framgia.data.source.remote.response.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -36,6 +33,6 @@ interface MovieApi {
     fun searchMovies(@Query(ApiConstants.PARAM_QUERY) query: String,
                      @Query(ApiConstants.PARAM_PAGE) page: Int): Single<MovieResponse>
 
-
-
+    @GET("person/{person_id}/movie_credits")
+    fun getMovieByPerson(@Path("person_id") personId: String): Single<MovieByPersonResponse>
 }

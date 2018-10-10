@@ -13,4 +13,6 @@
     <string name="title_more_trailer">More Trailer</string>
     <string name="title_cast">Cast</string>
     <string name="title_trailer_offical">Trailer offical</string>
+    <string name="title_birthday">"Birthday: "</string>
+    <string name="title_popularity">"Popularity: "</string>
 </resources>

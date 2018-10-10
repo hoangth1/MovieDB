@@ -8,6 +8,7 @@ import moviedb.cleanarchitecture.com.framgia.data.source.local.MovieLocalDataSou
 import moviedb.cleanarchitecture.com.framgia.data.source.remote.MovieRemoteDatSource
 import moviedb.cleanarchitecture.com.framgia.domain.model.Cast
 import moviedb.cleanarchitecture.com.framgia.domain.model.Movie
+import moviedb.cleanarchitecture.com.framgia.domain.model.MovieInformation
 import moviedb.cleanarchitecture.com.framgia.domain.model.Trailer
 import moviedb.cleanarchitecture.com.framgia.domain.repository.MovieRepository
 
@@ -17,6 +18,23 @@ class MovieRepositoryImp(val remote: MovieRemoteDatSource,
                          private val castEntityMapper: CastEntityMapper,
                          private val trailerEntityMapper: TrailerEntityMapper
 ) : MovieRepository {
+    override fun getFavoriteMovies(): Single<List<Movie>> = local.getMovies().map { listMovie ->
+        listMovie.map { movieEntityMapper.mapToDomain(it) }
+    }
+
+    override fun getFavoriteMovie(idMovie: String): Single<Movie> = local.getMovie(idMovie).map {
+        movieEntityMapper.mapToDomain(it)
+    }
+
+    override fun inserMovie(movie: Movie): Long = local.insertMovie(movieEntityMapper.mapToEntity(movie))
+
+    override fun deleteMovie(movie: Movie): Int = local.deleteMovie(movieEntityMapper.mapToEntity(movie))
+
+    override fun getMovieByPerson(idPerson: String): Single<List<Movie>> = remote.getMovieByPerson(idPerson)
+            .map { response ->
+                response.listMovie?.map { movieEntityMapper.mapToDomain(it) }
+            }
+
     override fun getTrailer(idMovie: String): Single<List<Trailer>> = remote.getTrailer(idMovie)
             .map { response ->
                 response.listTrailer?.map { trailerEntityMapper.mapToDomain(it) }
@@ -27,9 +45,11 @@ class MovieRepositoryImp(val remote: MovieRemoteDatSource,
                 response.listMovie.map { movieEntityMapper.mapToDomain(it) }
             }
 
-    override fun getListMovieByGenre(genreId: String, page: Int): Single<List<Movie>> = remote.getListMovieByGenre(genreId, page)
-            .map { response ->
-                response.listMovie?.map { movieEntityMapper.mapToDomain(it) }
+    override fun getListMovieByGenre(genreId: String, page: Int): Single<MovieInformation> = remote.getListMovieByGenre(genreId, page)
+            .flatMap {
+                val totalPage: Int? = it.totalPage
+                val listMovie = it.listMovie?.map { movieEntityMapper.mapToDomain(it) }
+                return@flatMap Single.just(MovieInformation(totalPage, listMovie))
             }
 
     override fun getListCast(idMovie: String): Single<List<Cast>> = remote.getListCast(idMovie)
