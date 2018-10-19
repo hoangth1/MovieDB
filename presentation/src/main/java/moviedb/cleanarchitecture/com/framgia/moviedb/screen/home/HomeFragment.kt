@@ -25,7 +25,7 @@ class HomeFragment() : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override val layoutId = R.layout.fragment_home
     override val viewModel by viewModel<HomeViewModel>()
-    override val bindingVariable: Int = BR.viewModel
+    override val bindingVariable: Int = 0
     lateinit var activityViewModel: MainViewModel
 
     override fun onAttach(context: Context?) {

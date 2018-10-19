@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import moviedb.cleanarchitecture.com.framgia.moviedb.BR
 
 abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment() {
     abstract val bindingVariable: Int
@@ -20,7 +21,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         viewBinding.apply {
             root.isClickable = true
             initComponent(viewBinding)
-            setVariable(bindingVariable, viewModel)
+            setVariable(BR.viewModel, viewModel)
             setLifecycleOwner(this@BaseFragment)
             executePendingBindings()
         }
