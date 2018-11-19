@@ -45,4 +45,9 @@ dependencies {
     implementation("org.koin:koin-android:1.0.0")
     implementation("org.koin:koin-android-viewmodel:1.0.0")
     implementation project(":domain")
+    implementation "android.arch.persistence.room:runtime:$arch"
+    kapt "android.arch.persistence.room:compiler:$arch"
+    implementation "android.arch.persistence.room:rxjava2:$arch"
+
+
 }

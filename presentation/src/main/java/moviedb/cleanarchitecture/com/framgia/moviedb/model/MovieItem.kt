@@ -1,15 +1,18 @@
 package moviedb.cleanarchitecture.com.framgia.moviedb.model
 
+import android.arch.lifecycle.MutableLiveData
+import android.databinding.ObservableField
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import moviedb.cleanarchitecture.com.framgia.domain.model.Model
 import moviedb.cleanarchitecture.com.framgia.domain.model.Movie
 import moviedb.cleanarchitecture.com.framgia.moviedb.base.ItemMapper
 import moviedb.cleanarchitecture.com.framgia.moviedb.base.ModelItem
+
 @Parcelize
 data class MovieItem(
         var voteCount: Int? = null,
-        var id: String? = null,
+        var id: String = "",
         var video: Boolean? = false,
         var voteAverage: String? = null,
         var title: String? = null,
@@ -20,7 +23,9 @@ data class MovieItem(
         var adult: Boolean? = false,
         var overview: String? = null,
         var releaseDate: String? = null
-) : ModelItem(), Parcelable
+) : ModelItem(), Parcelable {
+    var isFavorite = ObservableField<Boolean>()
+}
 
 class MovieItemMapper : ItemMapper<Movie, MovieItem> {
     override fun mapToPresentation(model: Movie): MovieItem = MovieItem(

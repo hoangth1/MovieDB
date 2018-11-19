@@ -12,13 +12,13 @@ import moviedb.cleanarchitecture.com.framgia.moviedb.databinding.FragmentDetailB
 import moviedb.cleanarchitecture.com.framgia.moviedb.model.CastItem
 import moviedb.cleanarchitecture.com.framgia.moviedb.model.MovieItem
 import moviedb.cleanarchitecture.com.framgia.moviedb.screen.detail.apdater.CastAdapter
+import moviedb.cleanarchitecture.com.framgia.moviedb.screen.detailcast.DetailCastFragment
 import moviedb.cleanarchitecture.com.framgia.moviedb.screen.main.MainActivity
 import moviedb.cleanarchitecture.com.framgia.moviedb.screen.main.MainViewModel
 import moviedb.cleanarchitecture.com.framgia.moviedb.screen.playtrailer.PlayTrailerFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>(), DetailHandler {
-
     companion object {
         const val BUNDLE_MOVIE = "movie"
         fun newInstance(movie: MovieItem) = DetailFragment().apply {
@@ -48,13 +48,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>(), D
         activityViewModel.haveStatusBar.value = true
         viewDataBinding.handler = this
         val currenMovie = bundle.getParcelable<MovieItem>(BUNDLE_MOVIE)
-        val castAdapter = CastAdapter ()
+        val castAdapter = CastAdapter { openDetailCast(it) }
         viewDataBinding.recyclerCast.apply {
             adapter = castAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
         viewModel.apply {
             movie.value = currenMovie
+            checkVideoAddedFavorite()
             listCast.observe(this@DetailFragment, Observer {
                 castAdapter.submitList(it)
             })
@@ -64,6 +65,21 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>(), D
 
     override fun onClickTrailer(movieItem: MovieItem) {
         replaceFragment(R.id.child_container, PlayTrailerFragment.newInstance(movieItem), "", true)
+    }
+
+    fun openDetailCast(castItem: CastItem) {
+        replaceFragment(R.id.child_container, DetailCastFragment.newInstance(castItem), "", true)
+    }
+
+    override fun onFavoriteClick() {
+        viewModel.movie.value?.apply {
+            if (isFavorite.get() == true) viewModel.removeFavorite(this)
+            else viewModel.addFavorite(this)
+        }
+    }
+
+    override fun onBackClick() {
+        fragmentManager?.popBackStack()
     }
 
 }

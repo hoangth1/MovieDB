@@ -1,15 +1,19 @@
 package moviedb.cleanarchitecture.com.framgia.data.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import moviedb.cleanarchitecture.com.framgia.data.base.EntityMapper
 import moviedb.cleanarchitecture.com.framgia.data.base.ModelEntity
 import moviedb.cleanarchitecture.com.framgia.domain.model.Movie
 
+@Entity(tableName = "movie")
 class MovieEntity(
         @SerializedName("vote_count")
         var voteCount: Int? = 0,
+        @PrimaryKey(autoGenerate = false)
         @SerializedName("id")
-        var id: String? = null,
+        var id: String = "",
         @SerializedName("video")
         var video: Boolean? = null,
         @SerializedName("vote_average")
