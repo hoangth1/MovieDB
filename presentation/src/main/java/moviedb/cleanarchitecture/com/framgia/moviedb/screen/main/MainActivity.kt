@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,7 +24,10 @@ class MainActivity() : BaseActivity<MainViewModel>(),
     override fun initComponent(savedInstanceState: Bundle?) {
         setSupportActionBar(toolbar)
         bottom_navigation.setOnNavigationItemSelectedListener(this)
-        replaceFragment(HomeFragment(), R.id.child_container, "", false)
+        if (savedInstanceState == null) {
+            replaceFragment(HomeFragment(), R.id.child_container, "", false)
+
+        }
         viewModel.isShowToolBar.observe(this, Observer { ishow ->
             ishow?.let { setShowToolbar(it) }
         })
